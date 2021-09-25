@@ -39,6 +39,13 @@ import { SidebarLogoComponent } from './layout/sidebar-logo.component';
 import { SidebarUserPanelComponent } from './layout/sidebar-user-panel.component';
 import { SidebarMenuComponent } from './layout/sidebar-menu.component';
 
+
+import { DataService } from '@shared/services/data.service';
+
+//product groups
+import { ProductGroupComponent } from './product-group/product-group.component';
+import { ProductGroupServiceProxy } from './product-group/shared/services/product-group.service';
+import { CreateProductGroupDialogComponent} from './product-group/create-product-group/create-product-group-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +74,11 @@ import { SidebarMenuComponent } from './layout/sidebar-menu.component';
     SidebarComponent,
     SidebarLogoComponent,
     SidebarUserPanelComponent,
-    SidebarMenuComponent
+    SidebarMenuComponent,
+    //product group
+    ProductGroupComponent,
+    CreateProductGroupDialogComponent
+    
   ],
   imports: [
     CommonModule,
@@ -84,7 +95,10 @@ import { SidebarMenuComponent } from './layout/sidebar-menu.component';
     SharedModule,
     NgxPaginationModule,
   ],
-  providers: [],
+  providers: [
+    DataService,
+    ProductGroupServiceProxy
+  ],
   entryComponents: [
     // tenants
     CreateTenantDialogComponent,
@@ -96,6 +110,8 @@ import { SidebarMenuComponent } from './layout/sidebar-menu.component';
     CreateUserDialogComponent,
     EditUserDialogComponent,
     ResetPasswordDialogComponent,
+    //product groups
+    CreateProductGroupDialogComponent
   ],
 })
-export class AppModule {}
+export class AppModule { }
