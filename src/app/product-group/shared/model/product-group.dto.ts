@@ -1,11 +1,5 @@
 import * as moment from 'moment';
-
-// public string Title { get; set; }
-// public DateTime CreationTime { get; set; }
-// public ProductGroupStatus Status { get; set; }
-// public long CreatedUserId { get; set; }
-// public long EditedUserId { get; set; }
-
+import {ProductGroupStatus} from './product-group.enum';
 export interface IProductGroupDto {
     id: number;
     title: string;
@@ -68,9 +62,3 @@ export class ProductGroupDto implements IProductGroupDto {
         return result;
     }
 }
-
-export enum ProductGroupStatus {
-    Waiting = 0,
-    Accepted = 1,
-    Rejected = 2
-  }
