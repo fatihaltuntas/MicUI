@@ -3,7 +3,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-6">
-            <h1>{{ "Product Groups" | localize }}</h1>
+            <h1>{{ "ProductGroups" | localize }}</h1>
           </div>
           <div class="col-6 text-right">
             <a href="javascript:;"
@@ -50,7 +50,9 @@
                     <th>{{ "Id" | localize }}</th>
                     <th>{{ "Name" | localize }}</th>
                     <th>{{ "Status" | localize }}</th>
-                    <th>{{ "Created Date" | localize }}</th>
+                    <th>{{ "CreatedDate" | localize }}</th>
+
+                    <!-- orjinal fatih   <th>{{ "Created Date" | localize }}</th> -->
                     <!-- <th style="width: 200px;">{{ "Actions" | localize }}</th> -->
                   </tr>
                 </thead>
@@ -68,7 +70,12 @@
                     <td>{{ productGroup.id }}</td>
                     <td>{{ productGroup.title }}</td>
                     <th>{{ productGroup.status }}</th>
-                    <th>{{productGroup.creationTime}}</th>
+
+
+                    <th>{{productGroup.creationTime|date:'short'}}</th>
+                    <!-- <th>{{productGroup.creationTime}}</th> -->
+
+
                     <!-- <td>
                       <button type="button"
                         class="btn btn-sm bg-secondary"
