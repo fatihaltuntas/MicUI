@@ -58,7 +58,7 @@
                   <td>{{ productGroup.id }}</td>
                   <td>{{ productGroup.title }}</td>
                   <th>{{ productGroup.status }}</th>
-                  <th>{{productGroup.creationTime}}</th>
+                  <th>{{productGroup.creationTime|date:'short'}}</th>
                   <td>
                     <button type="button" class="btn btn-sm bg-secondary" (click)="editProductGroup(productGroup)">
                       <i class="fas fa-pencil-alt"></i>

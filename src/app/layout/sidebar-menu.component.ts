@@ -69,7 +69,23 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 'fas fa-users',
                 'Pages.Users'
             ),
-            //--------------------------------- Mılti Level Menu Kalıdırıldı ---------------------------------
+            new MenuItem(this.l('MultiLevelMenu'), '', 'fas fa-sitemap', '', [
+               // new MenuItem('Product Group', '', 'fas fa-dot-circle', '', [
+                    new MenuItem(
+                        this.l('ProductGroup'),
+                        'asd',
+                        'far fa-folder-tree'
+                    ),
+                    new MenuItem(
+                        this.l('BrandGroup'),
+                        'asd',
+                        'far fa-circle'
+                    ),
+                    
+                ]),
+            
+
+            //--------------------------------- Multi Level Menu Kalıdırıldı ---------------------------------
             
             /*new MenuItem(this.l('MultiLevelMenu'), '', 'fas fa-circle', '', [
                 new MenuItem('ASP.NET Boilerplate', '', 'fas fa-dot-circle', '', [
@@ -123,7 +139,7 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 ])
             ])*/
 
-            //--------------------------------- Mılti Level Menu Kalıdırıldı ---------------------------------
+            //--------------------------------- Multi Level Menu Kalıdırıldı ---------------------------------
 
         ];
     }
