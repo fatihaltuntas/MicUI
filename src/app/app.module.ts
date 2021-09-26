@@ -46,6 +46,7 @@ import { DataService } from '@shared/services/data.service';
 import { ProductGroupComponent } from './product-group/product-group.component';
 import { ProductGroupServiceProxy } from './product-group/shared/services/product-group.service';
 import { CreateProductGroupDialogComponent} from './product-group/create-product-group/create-product-group-dialog.component';
+import { EditProductGroupDialogComponent } from './product-group/edit-product-group/edit-product-group-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +78,8 @@ import { CreateProductGroupDialogComponent} from './product-group/create-product
     SidebarMenuComponent,
     //product group
     ProductGroupComponent,
-    CreateProductGroupDialogComponent
+    CreateProductGroupDialogComponent,
+    EditProductGroupDialogComponent
     
   ],
   imports: [
@@ -111,7 +113,8 @@ import { CreateProductGroupDialogComponent} from './product-group/create-product
     EditUserDialogComponent,
     ResetPasswordDialogComponent,
     //product groups
-    CreateProductGroupDialogComponent
+    CreateProductGroupDialogComponent,
+    EditProductGroupDialogComponent
   ],
 })
 export class AppModule { }

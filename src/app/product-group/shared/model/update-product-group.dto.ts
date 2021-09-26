@@ -1,7 +1,8 @@
 import * as moment from 'moment';
 import {ProductGroupStatus} from './product-group.enum';
-export interface ICreateProductGroupDto {
-    id: number | undefined;
+
+export interface IUpdateProductGroupDto {
+    id: number;
     title: string;
     status:ProductGroupStatus;
     createdUserId:number;
@@ -10,7 +11,7 @@ export interface ICreateProductGroupDto {
 }
 
 
-export class CreateProductGroupDto implements ICreateProductGroupDto {
+export class UpdateProductGroupDto implements IUpdateProductGroupDto {
     id: number;
     title: string;
     status:ProductGroupStatus;
@@ -18,14 +19,14 @@ export class CreateProductGroupDto implements ICreateProductGroupDto {
     editedUserId:number;
     creationTime: moment.Moment;
 
-    static fromJS(data: any): CreateProductGroupDto {
+    static fromJS(data: any): UpdateProductGroupDto {
         data = typeof data === 'object' ? data : {};
-        const result = new CreateProductGroupDto();
+        const result = new UpdateProductGroupDto();
         result.init(data);
         return result;
     }
 
-    constructor(data?: ICreateProductGroupDto) {
+    constructor(data?: IUpdateProductGroupDto) {
         if (data) {
             for (const property in data) {
                 if (data.hasOwnProperty(property)) {
@@ -58,9 +59,9 @@ export class CreateProductGroupDto implements ICreateProductGroupDto {
         return data;
     }
 
-    clone(): CreateProductGroupDto {
+    clone(): UpdateProductGroupDto {
         const json = this.toJSON();
-        const result = new CreateProductGroupDto();
+        const result = new UpdateProductGroupDto();
         result.init(json);
         return result;
     }

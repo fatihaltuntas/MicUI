@@ -6,19 +6,13 @@ import { ProductGroupDto } from './shared/model/product-group.dto';
 import { PagedResultDtoOfProductGroupDto } from './shared/model/paged-result-dto-of-product-group.dto';
 import { ProductGroupServiceProxy } from './shared/services/product-group.service';
 import { CreateProductGroupDialogComponent } from './create-product-group/create-product-group-dialog.component';
+import { EditProductGroupDialogComponent } from './edit-product-group/edit-product-group-dialog.component';
 import {
   PagedListingComponentBase,
   PagedRequestDto
 } from '@shared/paged-listing-component-base';
-import {
-  RoleServiceProxy,
-  RoleDto,
-  RoleDtoPagedResultDto
-} from '@shared/service-proxies/service-proxies';
-// import { CreateRoleDialogComponent } from './create-role/create-role-dialog.component';
-// import { EditRoleDialogComponent } from './edit-role/edit-role-dialog.component';
 
-class PagedRolesRequestDto extends PagedRequestDto {
+class PagedProductGroupRequestDto extends PagedRequestDto {
   keyword: string;
 }
 
@@ -39,7 +33,7 @@ export class ProductGroupComponent extends PagedListingComponentBase<ProductGrou
   }
 
   list(
-    request: PagedRolesRequestDto,
+    request: PagedProductGroupRequestDto,
     pageNumber: number,
     finishedCallback: Function
   ): void {
@@ -60,7 +54,7 @@ export class ProductGroupComponent extends PagedListingComponentBase<ProductGrou
 
   delete(): void {
     // abp.message.confirm(
-    //   this.l('RoleDeleteWarningMessage', role.displayName),
+    //   this.l('ProducteleteWarningMessage', role.displayName),
     //   undefined,
     //   (result: boolean) => {
     //     if (result) {
@@ -82,9 +76,9 @@ export class ProductGroupComponent extends PagedListingComponentBase<ProductGrou
     this.showCreateOrEditProductGroupDialog();
   }
 
-  // editRole(role: RoleDto): void {
-  //   this.showCreateOrEditRoleDialog(role.id);
-  // }
+  editProductGroup(productGroup: ProductGroupDto): void {
+    this.showCreateOrEditProductGroupDialog(productGroup.id);
+  }
 
   showCreateOrEditProductGroupDialog(id?: number): void {
     let createOrEditProductGroupDialog: BsModalRef;
@@ -95,21 +89,20 @@ export class ProductGroupComponent extends PagedListingComponentBase<ProductGrou
           class: 'modal-lg',
         }
       );
-      // } else {
-      //   createOrEditProductGroupDialog = this._modalService.show(
-      //     EditProductGroupDialogComponent,
-      //     {
-      //       class: 'modal-lg',
-      //       initialState: {
-      //         id: id,
-      //       },
-      //     }
-      //   );
-      // }
+      } else {
+        createOrEditProductGroupDialog = this._modalService.show(
+          EditProductGroupDialogComponent,
+          {
+            class: 'modal-lg',
+            initialState: {
+              id: id,
+            },
+          }
+        );
+      }
 
       createOrEditProductGroupDialog.content.onSave.subscribe(() => {
         this.refresh();
       });
     }
   }
-}

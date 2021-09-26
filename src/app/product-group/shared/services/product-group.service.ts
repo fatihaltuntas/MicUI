@@ -21,38 +21,9 @@ export class ProductGroupServiceProxy {
     }
 
     create(input: CreateProductGroupDto | null | undefined): Observable<ProductGroupDto> {
-        let url_ = "/api/services/app/Message/Create";
+        let url_ = "api/services/app/ProductGroup/Create";
         return this.dataService.create(url_, input);
     }
-
-
-    // createUpload(input: CreateMessageDto | null | undefined): Observable<MessageDto> {
-    //     let url_ = "/api/services/app/Message/CreateUpload";
-    //     return this.dataService.create(url_, input);
-    // }
-
-    // update(input: MessageDto | null | undefined): Observable<MessageDto> {
-    //     let url_ = "/api/services/app/Message/Update";
-    //     return this.dataService.update(url_, input);
-    // }
-
-    // delete(id: number | null | undefined): Observable<void> {
-    //     let url_ = "/api/services/app/Message/Delete?";
-    //     if (id !== undefined)
-    //         url_ += "Id=" + encodeURIComponent("" + id) + "&";
-
-    //     return this.dataService.delete(url_);
-    // }
-
-    // get(id: number | null | undefined): Observable<BrandGr> {
-    //     let url_ = "/api/services/app/Message/Get?";
-    //     if (id !== undefined)
-    //         url_ += "Id=" + encodeURIComponent("" + id) + "&";
-
-    //     return this.dataService.get(url_);
-    // }
-
-
 
     getAll(keyword: string | undefined,skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfProductGroupDto> {
         let url_ = "api/services/app/ProductGroup/GetAll?";
@@ -63,6 +34,37 @@ export class ProductGroupServiceProxy {
         input.keyword = keyword;
         return this.dataService.post(url_, input);
     }
+
+
+    // createUpload(input: CreateMessageDto | null | undefined): Observable<MessageDto> {
+    //     let url_ = "/api/services/app/Message/CreateUpload";
+    //     return this.dataService.create(url_, input);
+    // }
+
+    update(input: ProductGroupDto | null | undefined): Observable<ProductGroupDto> {
+        let url_ = "api/services/app/ProductGroup/Update";
+        return this.dataService.update(url_, input);
+    }
+
+    // delete(id: number | null | undefined): Observable<void> {
+    //     let url_ = "/api/services/app/Message/Delete?";
+    //     if (id !== undefined)
+    //         url_ += "Id=" + encodeURIComponent("" + id) + "&";
+
+    //     return this.dataService.delete(url_);
+    // }
+
+    get(id: number | null | undefined): Observable<ProductGroupDto> {
+        let url_ = "api/services/app/ProductGroup/Get?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+
+        return this.dataService.get(url_);
+    }
+
+
+
+   
 
     // getAllPermissions() {
     //     let url_ = "/api/services/app/Message/GetAllPermissions"
