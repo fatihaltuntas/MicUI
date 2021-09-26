@@ -41,9 +41,7 @@
                     <th>{{ "Name" | localize }}</th>
                     <th>{{ "Status" | localize }}</th>
                     <th>{{ "CreatedDate" | localize }}</th>
-
-                    <!-- orjinal fatih   <th>{{ "Created Date" | localize }}</th> -->
-                    <!-- <th style="width: 200px;">{{ "Actions" | localize }}</th> -->
+                    <th style="width: 200px;">{{ "Actions" | localize }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -57,29 +55,19 @@
                             totalItems: totalItems
                           }
                   ">
-                    <td>{{ productGroup.id }}</td>
-                    <td>{{ productGroup.title }}</td>
-                    <th>{{ productGroup.status }}</th>
-
-
-                    <th>{{productGroup.creationTime|date:'short'}}</th>
-                    <!-- <th>{{productGroup.creationTime}}</th> -->
-
-
-                    <!-- <td>
-                      <button type="button"
-                        class="btn btn-sm bg-secondary"
-                        (click)="editRole(role)">
-                        <i class="fas fa-pencil-alt"></i>
-                        {{ "Edit" | localize }}
-                      </button>
-                      <button type="button"
-                        class="btn btn-sm bg-danger mx-2"
-                        (click)="delete(role)">
-                        <i class="fas fa-trash"></i>
-                        {{ "Delete" | localize }}
-                      </button>
-                    </td> -->
+                  <td>{{ productGroup.id }}</td>
+                  <td>{{ productGroup.title }}</td>
+                  <th>{{ productGroup.status }}</th>
+                  <th>{{productGroup.creationTime}}</th>
+                  <td>
+                    <button type="button" class="btn btn-sm bg-secondary" (click)="editProductGroup(productGroup)">
+                      <i class="fas fa-pencil-alt"></i>
+                      {{ "Edit" | localize }}
+                    </button>
+                    <button type="button" class="btn btn-sm bg-danger mx-2" (click)="delete(productGroup)">
+                      <i class="fas fa-trash"></i>
+                      {{ "Delete" | localize }}
+                    </button>
                   </tr>
                 </tbody>
               </table>
