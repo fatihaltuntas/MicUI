@@ -46,4 +46,10 @@ export class BrandServiceProxy {
 
         return this.dataService.get(url_);
     }
+    search(keyword:string): any{
+        let url_ = "api/services/app/Brand/Search?";
+        if (keyword.length >= 3)
+            url_ += "keyword=" + keyword
+        return this.dataService.get(url_);
+    }
 }

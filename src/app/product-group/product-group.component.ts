@@ -52,6 +52,13 @@ export class ProductGroupComponent extends PagedListingComponentBase<ProductGrou
       });
   }
 
+search(){
+  this._productGroupService.search(this.keyword).subscribe((result: PagedResultDtoOfProductGroupDto) => {
+    this.productGroups = result.items;
+    this.showPaging(result, 0);
+  });;
+}
+
   delete(): void {
     // abp.message.confirm(
     //   this.l('ProducteleteWarningMessage', role.displayName),

@@ -1,13 +1,5 @@
-<form
-  class="form-horizontal"
-  autocomplete="off"
-  #createProductGroupForm="ngForm"
-  (ngSubmit)="save()"
->
-  <abp-modal-header
-    [title]="'CreateNewProductGroup' | localize"
-    (onCloseClick)="bsModalRef.hide()"
-  ></abp-modal-header>
+<form class="form-horizontal" autocomplete="off" #createProductGroupForm="ngForm" (ngSubmit)="save()">
+  <abp-modal-header [title]="'CreateNewProductGroup' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
   <div class="modal-body">
     <tabset>
       <tab [heading]="'Details' | localize" class="pt-3 px-2">
@@ -16,22 +8,9 @@
             {{ "Name" | localize }}
           </label>
           <div class="col-md-9">
-            <input
-              type="text"
-              class="form-control"
-              name="title"
-              id="title"
-              required
-              minlength="2"
-              maxlength="32"
-              [(ngModel)]="productGroup.title"
-              #nameModel="ngModel"
-              #nameEl
-            />
-            <abp-validation-summary
-              [control]="nameModel"
-              [controlEl]="nameEl"
-            ></abp-validation-summary>
+            <input type="text" class="form-control" name="title" id="title" required minlength="2" maxlength="32"
+              [(ngModel)]="productGroup.title" #nameModel="ngModel" #nameEl />
+            <abp-validation-summary [control]="nameModel" [controlEl]="nameEl"></abp-validation-summary>
           </div>
         </div>
         <!-- <div class="form-group row required">
@@ -95,9 +74,6 @@
       </tab> -->
     </tabset>
   </div>
-  <abp-modal-footer
-    [cancelDisabled]="saving"
-    [saveDisabled]="!createProductGroupForm.form.valid || saving"
-    (onCancelClick)="bsModalRef.hide()"
-  ></abp-modal-footer>
+  <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="!createProductGroupForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
 </form>

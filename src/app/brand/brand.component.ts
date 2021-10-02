@@ -81,6 +81,13 @@ export class BrandComponent extends PagedListingComponentBase<BrandDto> {
     this.showCreateOrEditBrandDialog(brand.id);
   }
 
+  search(){
+    this._brandService.search(this.keyword).subscribe((result: PagedResultDtoOfBrandDto) => {
+      this.brands = result.items;
+      this.showPaging(result, 0);
+    });;
+  }
+
   showCreateOrEditBrandDialog(id?: number): void {
     let createOrEditBrandDialog: BsModalRef;
     if (!id) {

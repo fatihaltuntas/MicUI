@@ -23,12 +23,12 @@
             <div class="col-md-6">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <button type="button" class="btn bg-blue" (click)="getDataPage(1)">
+                  <button type="button" class="btn bg-blue" (click)="search()">
                     <i class="fas fa-search"></i>
                   </button>
                 </div>
                 <input type="text" class="form-control" name="keyword" [placeholder]="'SearchWithThreeDot' | localize"
-                  [(ngModel)]="keyword" (keyup.enter)="getDataPage(1)" />
+                  [(ngModel)]="keyword" (keyup.enter)="search()" />
               </div>
             </div>
           </div>
