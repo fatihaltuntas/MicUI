@@ -71,12 +71,13 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
             new MenuItem(this.l('MultiLevelMenu'), '', 'fas fa-sitemap', '', [
                 // new MenuItem('Product Group', '', 'fas fa-dot-circle', '', [
                 new MenuItem(
-                    this.l('ProductGroup'), '/app/product-group', 'fas fa-home'
+                    this.l('ProductGroup'), '/app/product-group', 'fas fa-archive'
                 ),
                 new MenuItem(
                     this.l('Brand'),
                     '/app/brand',
-                    'far fa-circle'
+                    'fas fa-tags'
+        
                 )
             ]),
 
