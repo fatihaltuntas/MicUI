@@ -45,8 +45,7 @@ export class CreateBrandDialogComponent extends AppComponentBase
   }
 
   ngOnInit(): void {
-    debugger;
-    var asd = this._productGroupService.getAllByAccepted().subscribe(element => {
+    this._productGroupService.getAllByAccepted().subscribe(element => {
       this.productGroupList = element;
     });
 

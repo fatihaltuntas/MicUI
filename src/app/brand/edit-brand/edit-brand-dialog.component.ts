@@ -11,6 +11,8 @@ import { AppComponentBase } from '@shared/app-component-base';
 import { BrandDto } from '../shared/model/brand.dto';
 import { BrandStatus } from '../shared/model/brand-status.enum'
 import { BrandServiceProxy } from '../shared/services/brand.service';
+import { ProductGroupServiceProxy } from '@app/product-group/shared/services/product-group.service';
+import { ProductGroupDto } from '@app/product-group/shared/model/product-group.dto';
 
 @Component({
   templateUrl: 'edit-brand-dialog.component.html'
@@ -22,13 +24,25 @@ export class EditBrandDialogComponent extends AppComponentBase
   brand = new BrandDto();
   statusList = [];
   selectedStatus: any = { name: "SelectStatus" };
+  productGroupList: Array<ProductGroupDto>;
+  selectedProductGroups: Array<ProductGroupDto>;
+  dropdownSettings = {
+    singleSelection: false,
+    idField: 'id',
+    textField: 'title',
+    selectAllText: 'Hepsini Seç',
+    unSelectAllText: 'Hepsini Kaldır',
+    itemsShowLimit: 3,
+    allowSearchFilter: true
+  };
 
   @Output() onSave = new EventEmitter<any>();
 
   constructor(
     injector: Injector,
     private _brandService: BrandServiceProxy,
-    public bsModalRef: BsModalRef
+    private _productGroupService: ProductGroupServiceProxy,
+    public bsModalRef: BsModalRef,
   ) {
     super(injector);
   }
@@ -43,16 +57,20 @@ export class EditBrandDialogComponent extends AppComponentBase
         value: BrandStatus.Rejected, name: this.l("Rejected"),
       }
     ];
-    
+    this._productGroupService.getAllByAccepted().subscribe(element => {
+      this.productGroupList = element;
+    });
     this._brandService.get(this.id).subscribe(element => {
       this.brand = element;
-      this.selectedStatus = this.statusList[this.brand.status];
+      this.selectedProductGroups = element.selectedProductGroups;
     })
   }
 
   save(): void {
     this.saving = true;
     this.brand.status = this.selectedStatus.value;
+    var selectedgroups = this.productGroupList.filter(item => this.selectedProductGroups.map(x=> x.id).indexOf(item.id) > -1);
+    this.brand.selectedProductGroups = selectedgroups;
     const brand = new BrandDto();
     brand.init(this.brand);
 
@@ -66,5 +84,12 @@ export class EditBrandDialogComponent extends AppComponentBase
         this.saving = false;
       }
     );
+  }
+
+  onItemSelect(item: any) {
+    console.log(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
   }
 }
