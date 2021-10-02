@@ -3,16 +3,15 @@ import { mergeMap as _observableMergeMap, catchError as _observableCatch, skip }
 import { Observable, from as _observableFrom, throwError as _observableThrow, of as _observableOf } from 'rxjs';
 import { Injectable, Inject, Optional, InjectionToken, Input } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
-import {PagedResultDtoOfProductGroupDto} from '../model/paged-result-dto-of-product-group.dto';
+import {PagedResultDtoOfBrandDto} from '../model/paged-result-dto-of-brand.dto';
 import * as moment from 'moment';
 
 import { DataService } from '@shared/services/data.service';
-import { ProductGroupDto } from '../model/product-group.dto';
-import { CreateProductGroupDto } from '../model/create-product-group.dto';
+import { BrandDto } from '../model/brand.dto';
 
 
 @Injectable()
-export class ProductGroupServiceProxy {
+export class BrandServiceProxy {
     private http: HttpClient;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
@@ -20,13 +19,13 @@ export class ProductGroupServiceProxy {
         this.http = http;
     }
 
-    create(input: CreateProductGroupDto | null | undefined): Observable<ProductGroupDto> {
-        let url_ = "api/services/app/ProductGroup/Create";
+    create(input: BrandDto | null | undefined): Observable<BrandDto> {
+        let url_ = "api/services/app/Brand/Create";
         return this.dataService.create(url_, input);
     }
 
-    getAll(keyword: string | undefined,skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfProductGroupDto> {
-        let url_ = "api/services/app/ProductGroup/GetAll?";
+    getAll(keyword: string | undefined,skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfBrandDto> {
+        let url_ = "api/services/app/Brand/GetAll?";
 
         var input: any = {};
         input.skipCount = skipCount;
@@ -35,21 +34,16 @@ export class ProductGroupServiceProxy {
         return this.dataService.post(url_, input);
     }
 
-    update(input: ProductGroupDto | null | undefined): Observable<ProductGroupDto> {
-        let url_ = "api/services/app/ProductGroup/Update";
+    update(input: BrandDto | null | undefined): Observable<BrandDto> {
+        let url_ = "api/services/app/Brand/Update";
         return this.dataService.update(url_, input);
     }
 
-    get(id: number | null | undefined): Observable<ProductGroupDto> {
-        let url_ = "api/services/app/ProductGroup/Get?";
+    get(id: number | null | undefined): Observable<BrandDto> {
+        let url_ = "api/services/app/Brand/Get?";
         if (id !== undefined)
             url_ += "Id=" + encodeURIComponent("" + id) + "&";
 
-        return this.dataService.get(url_);
-    }
-
-    getAllByAccepted(): any{
-        let url_ = "api/services/app/ProductGroup/GetActiveProductGroups";
         return this.dataService.get(url_);
     }
 }

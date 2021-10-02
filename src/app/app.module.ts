@@ -47,6 +47,14 @@ import { ProductGroupComponent } from './product-group/product-group.component';
 import { ProductGroupServiceProxy } from './product-group/shared/services/product-group.service';
 import { CreateProductGroupDialogComponent} from './product-group/create-product-group/create-product-group-dialog.component';
 import { EditProductGroupDialogComponent } from './product-group/edit-product-group/edit-product-group-dialog.component';
+
+//brands
+import { BrandComponent } from './brand/brand.component';
+import { BrandServiceProxy } from './brand/shared/services/brand.service';
+import { CreateBrandDialogComponent} from './brand/create-brand/create-brand-dialog.component';
+import { EditBrandDialogComponent } from './brand/edit-brand/edit-brand-dialog.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +87,11 @@ import { EditProductGroupDialogComponent } from './product-group/edit-product-gr
     //product group
     ProductGroupComponent,
     CreateProductGroupDialogComponent,
-    EditProductGroupDialogComponent
+    EditProductGroupDialogComponent,
+    //brands
+    BrandComponent,
+    CreateBrandDialogComponent,
+    EditBrandDialogComponent
     
   ],
   imports: [
@@ -96,10 +108,12 @@ import { EditProductGroupDialogComponent } from './product-group/edit-product-gr
     ServiceProxyModule,
     SharedModule,
     NgxPaginationModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
     DataService,
-    ProductGroupServiceProxy
+    ProductGroupServiceProxy,
+    BrandServiceProxy
   ],
   entryComponents: [
     // tenants
@@ -114,7 +128,10 @@ import { EditProductGroupDialogComponent } from './product-group/edit-product-gr
     ResetPasswordDialogComponent,
     //product groups
     CreateProductGroupDialogComponent,
-    EditProductGroupDialogComponent
+    EditProductGroupDialogComponent,
+    //brands
+    CreateBrandDialogComponent,
+    EditBrandDialogComponent
   ],
 })
 export class AppModule { }

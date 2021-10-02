@@ -1,0 +1,33 @@
+<form class="form-horizontal" autocomplete="off" #editBrandForm="ngForm" (ngSubmit)="save()">
+  <abp-modal-header [title]="'EditBrand' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+  <div class="modal-body">
+    <tabset>
+      <tab [heading]="'Details' | localize" class="pt-3 px-2">
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="name">
+            {{ "Title" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="name" id="name" required minlength="2" maxlength="32"
+              [(ngModel)]="brand.title" #titleModel="ngModel" #titleEl />
+            <abp-validation-summary [control]="titleModel" [controlEl]="titleEl"></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="status">
+            {{ "BrandStatus" | localize }}
+          </label>
+          <div class="col-md-9">
+            <select class="form-control" type="number" [(ngModel)]="selectedStatus" name="status">
+              <option selected hidden [value]="selectedStatus">{{selectedStatus | json}} </option>
+              <option *ngFor="let status of statusList" [ngValue]="status">{{l(status.name)}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+  <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="!editBrandForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>

@@ -1,14 +1,14 @@
-import {Component, Injector, OnInit} from '@angular/core';
-import {AppComponentBase} from '@shared/app-component-base';
+import { Component, Injector, OnInit } from '@angular/core';
+import { AppComponentBase } from '@shared/app-component-base';
 import {
     Router,
     RouterEvent,
     NavigationEnd,
     PRIMARY_OUTLET
 } from '@angular/router';
-import {BehaviorSubject} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {MenuItem} from '@shared/layout/menu-item';
+import { BehaviorSubject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { MenuItem } from '@shared/layout/menu-item';
 
 @Component({
     selector: 'sidebar-menu',
@@ -45,12 +45,11 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
         return [
             //------------------------- About Hakkında sidebar Kaldırıldı ------------------------- 
 
-         //   new MenuItem(this.l('About'), '/app/about', 'fas fa-info-circle'),
+            //   new MenuItem(this.l('About'), '/app/about', 'fas fa-info-circle'),
 
             //------------------------- About Hakkında sidebar Kaldırıldı ------------------------- 
 
             new MenuItem(this.l('HomePage'), '/app/home', 'fas fa-home'),
-            new MenuItem(this.l('ProductGroup'), '/app/product-group', 'fas fa-home'),
             new MenuItem(
                 this.l('Roles'),
                 '/app/roles',
@@ -70,23 +69,20 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 'Pages.Users'
             ),
             new MenuItem(this.l('MultiLevelMenu'), '', 'fas fa-sitemap', '', [
-               // new MenuItem('Product Group', '', 'fas fa-dot-circle', '', [
-                    new MenuItem(
-                        this.l('ProductGroup'),
-                        'asd',
-                        'far fa-folder-tree'
-                    ),
-                    new MenuItem(
-                        this.l('BrandGroup'),
-                        'asd',
-                        'far fa-circle'
-                    ),
-                    
-                ]),
-            
+                // new MenuItem('Product Group', '', 'fas fa-dot-circle', '', [
+                new MenuItem(
+                    this.l('ProductGroup'), '/app/product-group', 'fas fa-home'
+                ),
+                new MenuItem(
+                    this.l('Brand'),
+                    '/app/brand',
+                    'far fa-circle'
+                )
+            ]),
+
 
             //--------------------------------- Multi Level Menu Kalıdırıldı ---------------------------------
-            
+
             /*new MenuItem(this.l('MultiLevelMenu'), '', 'fas fa-circle', '', [
                 new MenuItem('ASP.NET Boilerplate', '', 'fas fa-dot-circle', '', [
                     new MenuItem(
