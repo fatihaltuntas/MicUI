@@ -77,7 +77,7 @@ export class BrandComponent extends PagedListingComponentBase<BrandDto> {
     this.showCreateOrEditBrandDialog();
   }
 
-  edit(brand: BrandDto): void {
+  editBrand(brand: BrandDto): void {
     this.showCreateOrEditBrandDialog(brand.id);
   }
 
