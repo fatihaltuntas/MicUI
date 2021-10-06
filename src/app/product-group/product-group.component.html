@@ -57,16 +57,16 @@
                   ">
                   <td>{{ productGroup.id }}</td>
                   <td>{{ productGroup.title }}</td>
-                  <th>{{ productGroup.status }}</th>
+                  <th>
+                    <i *ngIf="productGroup.status == 0" class="fas fa-clock" style="color: darkorange;"></i>
+                    <i *ngIf="productGroup.status == 1" class="fas fa-check" style="color: green;"></i>
+                    <i *ngIf="productGroup.status == 2" class="fas fa-times" style="color: red;"></i>
+                  </th>
                   <th>{{productGroup.creationTime|date:'short'}}</th>
                   <td>
                     <button type="button" class="btn btn-sm bg-secondary" (click)="editProductGroup(productGroup)">
                       <i class="fas fa-pencil-alt"></i>
                       {{ "Edit" | localize }}
-                    </button>
-                    <button type="button" class="btn btn-sm bg-danger mx-2" (click)="delete(productGroup)">
-                      <i class="fas fa-trash"></i>
-                      {{ "Delete" | localize }}
                     </button>
                   </tr>
                 </tbody>

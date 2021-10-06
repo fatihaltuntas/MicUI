@@ -63,6 +63,7 @@ export class EditBrandDialogComponent extends AppComponentBase
     this._brandService.get(this.id).subscribe(element => {
       this.brand = element;
       this.selectedProductGroups = element.selectedProductGroups;
+      this.selectedStatus = this.statusList[this.brand.status];
     })
   }
 

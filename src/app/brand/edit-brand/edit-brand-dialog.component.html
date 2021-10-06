@@ -13,7 +13,7 @@
             <abp-validation-summary [control]="titleModel" [controlEl]="titleEl"></abp-validation-summary>
           </div>
         </div>
-        <div class="form-group-dropdown row required">
+        <div class="form-group-dropdown row required" style="margin-bottom: 16px;">
           <label class="col-md-3 col-form-label">
             {{ "ProductGroups" | localize }}
           </label>
@@ -22,6 +22,18 @@
               [(ngModel)]="selectedProductGroups" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
               (onSelectAll)="onSelectAll($event)" [ngModelOptions]="{standalone: true}">
             </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="status">
+            {{ "BrandStatus" | localize }}
+          </label>
+          <div class="col-md-9">
+            <select class="form-control" type="number" [(ngModel)]="selectedStatus" name="status">
+              <option selected hidden [value]="selectedStatus">{{selectedStatus | json}} </option>
+              <option *ngFor="let status of statusList" [ngValue]="status">{{l(status.name)}}
+              </option>
+            </select>
           </div>
         </div>
       </tab>

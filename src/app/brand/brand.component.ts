@@ -69,7 +69,7 @@ export class BrandComponent extends PagedListingComponentBase<BrandDto> {
     //         )
     //         .subscribe(() => {});
     //     }
-    //   }
+    //   }++
     // );
   }
 
