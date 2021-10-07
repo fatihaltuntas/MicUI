@@ -19,16 +19,23 @@
       <div class="card">
         <div class="card-header">
           <div class="row">
-            <div class="col-md-6">&emsp;</div>
+            <div class="col-md-6">
+              <select class="form-control" type="number" [(ngModel)]="selectedStatus" name="status"
+                (ngModelChange)="onStatusSelected(selectedStatus)">
+                <option selected hidden [value]="selectedStatus">{{"Status" | localize}}</option>
+                <option *ngFor="let statx of statusList" [ngValue]="statx">{{l(statx.name)}}
+                </option>
+              </select>
+            </div>
             <div class="col-md-6">
               <div class="input-group">
+                <input type="text" class="form-control" name="keyword" [placeholder]="'SearchWithThreeDot' | localize"
+                  [(ngModel)]="keyword" (keyup.enter)="search()" />
                 <div class="input-group-prepend">
                   <button type="button" class="btn bg-blue" (click)="search()">
                     <i class="fas fa-search"></i>
                   </button>
                 </div>
-                <input type="text" class="form-control" name="keyword" [placeholder]="'SearchWithThreeDot' | localize"
-                  [(ngModel)]="keyword" (keyup.enter)="search()" />
               </div>
             </div>
           </div>
@@ -58,9 +65,9 @@
                     <td>{{ brand.id }}</td>
                     <td>{{ brand.title }}</td>
                     <th>
-                      <i *ngIf="brand.status == 0" class="fas fa-clock" style="color: darkorange;"></i>
-                      <i *ngIf="brand.status == 1" class="fas fa-check" style="color: green;"></i>
-                      <i *ngIf="brand.status == 2" class="fas fa-times" style="color: red;"></i>
+                      <i *ngIf="brand.status == 1" class="fas fa-clock" style="color: darkorange;"></i>
+                      <i *ngIf="brand.status == 2" class="fas fa-check" style="color: green;"></i>
+                      <i *ngIf="brand.status == 3" class="fas fa-times" style="color: red;"></i>
                     </th>
                     <th>{{brand.creationTime}}</th>
                     <td>

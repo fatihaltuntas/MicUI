@@ -57,6 +57,7 @@ export class CreateBrandDialogComponent extends AppComponentBase
     // debugger;
     var selectedgroups = this.productGroupList.filter(item => this.selectedProductGroups.map(x=> x.id).indexOf(item.id) > -1);
     this.brand.selectedProductGroups = selectedgroups;
+    this.brand.status = BrandStatus.Waiting;
     
     // brand.init(this.brand);
 

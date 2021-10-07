@@ -8,7 +8,7 @@ import * as moment from 'moment';
 
 import { DataService } from '@shared/services/data.service';
 import { ProductGroupDto } from '../model/product-group.dto';
-import { CreateProductGroupDto } from '../model/create-product-group.dto';
+import { ProductGroupFilterRequestDto } from '../model/product-group-filter-request.dto';
 
 
 @Injectable()
@@ -20,7 +20,7 @@ export class ProductGroupServiceProxy {
         this.http = http;
     }
 
-    create(input: CreateProductGroupDto | null | undefined): Observable<ProductGroupDto> {
+    create(input: ProductGroupDto | null | undefined): Observable<ProductGroupDto> {
         let url_ = "api/services/app/ProductGroup/Create";
         return this.dataService.create(url_, input);
     }
@@ -53,10 +53,8 @@ export class ProductGroupServiceProxy {
         return this.dataService.get(url_);
     }
 
-    search(keyword:string): any{
-        let url_ = "api/services/app/ProductGroup/Search?";
-        if (keyword.length >= 3)
-            url_ += "keyword=" + keyword
-        return this.dataService.get(url_);
+    filter(request : ProductGroupFilterRequestDto): any{
+        let url_ = "api/services/app/ProductGroup/Filter?";
+        return this.dataService.post(url_,request);
     }
 }

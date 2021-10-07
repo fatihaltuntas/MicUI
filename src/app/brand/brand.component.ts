@@ -12,10 +12,8 @@ import {
   PagedListingComponentBase,
   PagedRequestDto
 } from '@shared/paged-listing-component-base';
-
-class PagedBrandRequestDto extends PagedRequestDto {
-  keyword: string;
-}
+import { ProductGroupFilterRequestDto } from '@app/product-group/shared/model/product-group-filter-request.dto';
+import { BrandStatus } from './shared/model/brand-status.enum';
 
 @Component({
   templateUrl: './brand.component.html',
@@ -24,6 +22,9 @@ class PagedBrandRequestDto extends PagedRequestDto {
 export class BrandComponent extends PagedListingComponentBase<BrandDto> {
   brands: BrandDto[] = [];
   keyword = '';
+  statusList = [];
+  selectedStatus: any = { name: "SelectStatus" };
+  request: ProductGroupFilterRequestDto = new ProductGroupFilterRequestDto;
 
   constructor(
     injector: Injector,
@@ -34,14 +35,23 @@ export class BrandComponent extends PagedListingComponentBase<BrandDto> {
   }
 
   list(
-    request: PagedBrandRequestDto,
+    request: ProductGroupFilterRequestDto,
     pageNumber: number,
     finishedCallback: Function
   ): void {
-    request.keyword = this.keyword;
+
+    this.statusList = [
+      {
+        value: BrandStatus.Waiting, name: this.l("Waiting"),
+      }, {
+        value: BrandStatus.Accepted, name: this.l("Accepted"),
+      }, {
+        value: BrandStatus.Rejected, name: this.l("Rejected"),
+      }
+    ];
 
     this._brandService
-      .getAll(request.keyword, request.skipCount, request.maxResultCount)
+      .filter(request)
       .pipe(
         finalize(() => {
           finishedCallback();
@@ -81,11 +91,15 @@ export class BrandComponent extends PagedListingComponentBase<BrandDto> {
     this.showCreateOrEditBrandDialog(brand.id);
   }
 
-  search(){
-    this._brandService.search(this.keyword).subscribe((result: PagedResultDtoOfBrandDto) => {
+  search() {
+    this._brandService.filter(this.request).subscribe((result: PagedResultDtoOfBrandDto) => {
       this.brands = result.items;
       this.showPaging(result, 0);
     });;
+  }
+
+  onStatusSelected(status) {
+    this.request.status = status.value;
   }
 
   showCreateOrEditBrandDialog(id?: number): void {

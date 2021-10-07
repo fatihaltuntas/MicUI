@@ -46,7 +46,7 @@ export class EditProductGroupDialogComponent extends AppComponentBase
     
     this._productGroupService.get(this.id).subscribe(element => {
       this.productGroup = element;
-      this.selectedStatus = this.statusList[this.productGroup.status];
+      this.selectedStatus = this.statusList[this.productGroup.status - 1];
     })
   }
 

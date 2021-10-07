@@ -8,6 +8,7 @@ import * as moment from 'moment';
 
 import { DataService } from '@shared/services/data.service';
 import { BrandDto } from '../model/brand.dto';
+import { ProductGroupFilterRequestDto } from '@app/product-group/shared/model/product-group-filter-request.dto';
 
 
 @Injectable()
@@ -46,10 +47,9 @@ export class BrandServiceProxy {
 
         return this.dataService.get(url_);
     }
-    search(keyword:string): any{
-        let url_ = "api/services/app/Brand/Search?";
-        if (keyword.length >= 3)
-            url_ += "keyword=" + keyword
-        return this.dataService.get(url_);
+
+    filter(request : ProductGroupFilterRequestDto): any{
+        let url_ = "api/services/app/Brand/Filter?";
+        return this.dataService.post(url_,request);
     }
 }

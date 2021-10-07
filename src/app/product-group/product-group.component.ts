@@ -7,14 +7,12 @@ import { PagedResultDtoOfProductGroupDto } from './shared/model/paged-result-dto
 import { ProductGroupServiceProxy } from './shared/services/product-group.service';
 import { CreateProductGroupDialogComponent } from './create-product-group/create-product-group-dialog.component';
 import { EditProductGroupDialogComponent } from './edit-product-group/edit-product-group-dialog.component';
+import { ProductGroupFilterRequestDto } from './shared/model/product-group-filter-request.dto'
 import {
   PagedListingComponentBase,
   PagedRequestDto
 } from '@shared/paged-listing-component-base';
-
-class PagedProductGroupRequestDto extends PagedRequestDto {
-  keyword: string;
-}
+import { ProductGroupStatus } from './shared/model/product-group.enum';
 
 @Component({
   templateUrl: './product-group.component.html',
@@ -23,6 +21,9 @@ class PagedProductGroupRequestDto extends PagedRequestDto {
 export class ProductGroupComponent extends PagedListingComponentBase<ProductGroupDto> {
   productGroups: ProductGroupDto[] = [];
   keyword = '';
+  statusList = [];
+  selectedStatus: any = { name: "SelectStatus" };
+  request: ProductGroupFilterRequestDto = new ProductGroupFilterRequestDto;
 
   constructor(
     injector: Injector,
@@ -33,14 +34,23 @@ export class ProductGroupComponent extends PagedListingComponentBase<ProductGrou
   }
 
   list(
-    request: PagedProductGroupRequestDto,
+    request: ProductGroupFilterRequestDto,
     pageNumber: number,
     finishedCallback: Function
   ): void {
-    request.keyword = this.keyword;
+
+    this.statusList = [
+      {
+        value: ProductGroupStatus.Waiting, name: this.l("Waiting"),
+      }, {
+        value: ProductGroupStatus.Accepted, name: this.l("Accepted"),
+      }, {
+        value: ProductGroupStatus.Rejected, name: this.l("Rejected"),
+      }
+    ];
 
     this._productGroupService
-      .getAll(request.keyword, request.skipCount, request.maxResultCount)
+      .filter(request)
       .pipe(
         finalize(() => {
           finishedCallback();
@@ -52,12 +62,16 @@ export class ProductGroupComponent extends PagedListingComponentBase<ProductGrou
       });
   }
 
-search(){
-  this._productGroupService.search(this.keyword).subscribe((result: PagedResultDtoOfProductGroupDto) => {
-    this.productGroups = result.items;
-    this.showPaging(result, 0);
-  });;
-}
+  search() {
+    this._productGroupService.filter(this.request).subscribe((result: PagedResultDtoOfProductGroupDto) => {
+      this.productGroups = result.items;
+      this.showPaging(result, 0);
+    });;
+  }
+
+  onStatusSelected(status) {
+    this.request.status = status.value;
+  }
 
   delete(): void {
     // abp.message.confirm(
@@ -96,20 +110,20 @@ search(){
           class: 'modal-lg',
         }
       );
-      } else {
-        createOrEditProductGroupDialog = this._modalService.show(
-          EditProductGroupDialogComponent,
-          {
-            class: 'modal-lg',
-            initialState: {
-              id: id,
-            },
-          }
-        );
-      }
-
-      createOrEditProductGroupDialog.content.onSave.subscribe(() => {
-        this.refresh();
-      });
+    } else {
+      createOrEditProductGroupDialog = this._modalService.show(
+        EditProductGroupDialogComponent,
+        {
+          class: 'modal-lg',
+          initialState: {
+            id: id,
+          },
+        }
+      );
     }
+
+    createOrEditProductGroupDialog.content.onSave.subscribe(() => {
+      this.refresh();
+    });
   }
+}
