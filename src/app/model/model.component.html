@@ -3,10 +3,10 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-6">
-          <h1>{{ "Brands" | localize }}</h1>
+          <h1>{{ "Models" | localize }}</h1>
         </div>
         <div class="col-6 text-right">
-          <a href="javascript:;" class="btn bg-blue" (click)="createBrand()">
+          <a href="javascript:;" class="btn bg-blue" (click)="createModel()">
             <i class="fa fa-plus-square"></i>
             {{ "Create" | localize }}
           </a>
@@ -53,7 +53,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="
-                    let brand of brands
+                    let model of models
                       | paginate
                         : {
                             id: 'server',
@@ -62,16 +62,16 @@
                             totalItems: totalItems
                           }
                   ">
-                    <td>{{ brand.id }}</td>
-                    <td>{{ brand.title }}</td>
+                    <td>{{ model.id }}</td>
+                    <td>{{ model.title }}</td>
                     <th>
-                      <i *ngIf="brand.status == 1" class="fas fa-clock" style="color: darkorange;"></i>
-                      <i *ngIf="brand.status == 2" class="fas fa-check" style="color: green;"></i>
-                      <i *ngIf="brand.status == 3" class="fas fa-times" style="color: red;"></i>
+                      <i *ngIf="model.status == 1" class="fas fa-clock" style="color: darkorange;"></i>
+                      <i *ngIf="model.status == 2" class="fas fa-check" style="color: green;"></i>
+                      <i *ngIf="model.status == 3" class="fas fa-times" style="color: red;"></i>
                     </th>
-                    <th>{{brand.creationTime}}</th>
+                    <th>{{model.creationTime}}</th>
                     <td>
-                      <button type="button" class="btn btn-sm bg-secondary" (click)="editBrand(brand)">
+                      <button type="button" class="btn btn-sm bg-secondary" (click)="editModel(model)">
                         <i class="fas fa-pencil-alt"></i>
                         {{ "Edit" | localize }}
                       </button>

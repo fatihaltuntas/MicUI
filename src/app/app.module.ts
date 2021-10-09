@@ -55,6 +55,11 @@ import { CreateBrandDialogComponent} from './brand/create-brand/create-brand-dia
 import { EditBrandDialogComponent } from './brand/edit-brand/edit-brand-dialog.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
+//models
+import { ModelServiceProxy} from './model/shared/services/model.service'
+import { CreateModelDialogComponent} from './model/create-model/create-model-dialog.component';
+import { EditModelDialogComponent} from './model/edit-model/edit-model-dialog.component';
+import { ModelComponent } from './model/model.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +96,11 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     //brands
     BrandComponent,
     CreateBrandDialogComponent,
-    EditBrandDialogComponent
+    EditBrandDialogComponent,
+    //models
+    ModelComponent,
+    CreateModelDialogComponent,
+    EditModelDialogComponent
     
   ],
   imports: [
@@ -113,7 +122,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
   providers: [
     DataService,
     ProductGroupServiceProxy,
-    BrandServiceProxy
+    BrandServiceProxy,
+    ModelServiceProxy
   ],
   entryComponents: [
     // tenants
@@ -131,7 +141,10 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     EditProductGroupDialogComponent,
     //brands
     CreateBrandDialogComponent,
-    EditBrandDialogComponent
+    EditBrandDialogComponent,
+    //models
+    CreateModelDialogComponent,
+    EditModelDialogComponent
   ],
 })
 export class AppModule { }

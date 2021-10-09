@@ -77,7 +77,11 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                     this.l('Brand'),
                     '/app/brand',
                     'fas fa-tags'
-        
+                ),
+                new MenuItem(
+                    this.l('Model'),
+                    '/app/model',
+                    'fas fa-tags'
                 )
             ]),
 

@@ -57,4 +57,9 @@ export class ProductGroupServiceProxy {
         let url_ = "api/services/app/ProductGroup/Filter?";
         return this.dataService.post(url_,request);
     }
+    getProductGroupsByBrandId(brandId:number):any{
+        let url_ = "api/services/app/ProductGroup/GetProductGroupsByBrandId?";
+        url_ += "brandId=" + encodeURIComponent("" + brandId);
+        return this.dataService.get(url_);
+    }
 }

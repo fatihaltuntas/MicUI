@@ -1,0 +1,113 @@
+import {
+  Component,
+  Injector,
+  OnInit,
+  EventEmitter,
+  Output,
+} from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { forEach as _forEach, includes as _includes, map as _map } from 'lodash-es';
+import { AppComponentBase } from '@shared/app-component-base';
+import { ProductGroupServiceProxy } from '@app/product-group/shared/services/product-group.service';
+import { ProductGroupDto } from '@app/product-group/shared/model/product-group.dto';
+import { ModelDto } from '../shared/model/model.dto';
+import { ModelServiceProxy } from '../shared/services/model.service';
+import { ModelStatus } from '../shared/model/model-status.enum';
+import { BrandDto } from '@app/brand/shared/model/brand.dto';
+import { BrandServiceProxy } from '@app/brand/shared/services/brand.service';
+
+@Component({
+  templateUrl: 'edit-model-dialog.component.html'
+})
+export class EditModelDialogComponent extends AppComponentBase
+  implements OnInit {
+  saving = false;
+  id: number;
+  model = new ModelDto();
+  statusList = [];
+  selectedStatus: any = { name: "SelectStatus" };
+  productGroupList: Array<ProductGroupDto>;
+  selectedProductGroup: ProductGroupDto;
+  brandList: Array<BrandDto>;
+  selectedBrand: BrandDto;
+  dropdownSettings = {
+    singleSelection: false,
+    idField: 'id',
+    textField: 'title',
+    selectAllText: 'Hepsini Seç',
+    unSelectAllText: 'Hepsini Kaldır',
+    itemsShowLimit: 3,
+    allowSearchFilter: true
+  };
+
+  @Output() onSave = new EventEmitter<any>();
+
+  constructor(
+    injector: Injector,
+    private _modelService: ModelServiceProxy,
+    private _productGroupService: ProductGroupServiceProxy,
+    private _brandService: BrandServiceProxy,
+    public bsModalRef: BsModalRef,
+  ) {
+    super(injector);
+  }
+
+  ngOnInit(): void {
+    this.statusList = [
+      {
+        value: ModelStatus.Waiting, name: this.l("Waiting"),
+      }, {
+        value: ModelStatus.Accepted, name: this.l("Accepted"),
+      }, {
+        value: ModelStatus.Rejected, name: this.l("Rejected"),
+      }
+    ];
+    this._productGroupService.getAllByAccepted().subscribe(element => {
+      this.productGroupList = element;
+    });
+    this._brandService.getAllByAccepted().subscribe(element => {
+      this.brandList = element;
+    });
+    this._modelService.get(this.id).subscribe(element => {
+      this.model = element;
+      this._productGroupService.getProductGroupsByBrandId(this.model.brandId).subscribe(element => {
+        this.productGroupList = element;
+      });
+      this.selectedProductGroup = this.productGroupList.find(el=> el.id == this.model.productGroupId);
+      this.selectedBrand = this.brandList.find(x=> x.id == this.model.brandId);
+      
+      this.selectedStatus = this.statusList[this.model.status - 1];
+    })
+  }
+
+  save(): void {
+    this.saving = true;
+    this.model.status = this.selectedStatus.value;
+    this.model.brandId = this.selectedBrand.id;
+    this.model.productGroupId = this.selectedProductGroup.id;
+    // var selectedgroups = this.productGroupList.filter(item => this.selectedProductGroups.map(x=> x.id).indexOf(item.id) > -1);
+    // this.model.selectedProductGroups = selectedgroups;
+    const model = new ModelDto();
+    model.init(this.model);
+
+    this._modelService.update(model).subscribe(
+      () => {
+        this.notify.info(this.l('SavedSuccessfully'));
+        this.bsModalRef.hide();
+        this.onSave.emit();
+      },
+      () => {
+        this.saving = false;
+      }
+    );
+  }
+
+  onItemSelect(item: any) {
+    this._productGroupService.getProductGroupsByBrandId(item.id).subscribe(element => {
+      this.productGroupList = element;
+    });
+  }
+  onSelectAll(items: any) {
+    console.log(items);
+  }
+}

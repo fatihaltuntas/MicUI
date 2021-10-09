@@ -1,0 +1,55 @@
+<form class="form-horizontal" autocomplete="off" #editModelForm="ngForm" (ngSubmit)="save()">
+  <abp-modal-header [title]="'EditModel' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+  <div class="modal-body">
+    <tabset>
+      <tab [heading]="'Details' | localize" class="pt-3 px-2">
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="name">
+            {{ "Title" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="name" id="name" required minlength="2" maxlength="32"
+              [(ngModel)]="model.title" #titleModel="ngModel" #titleEl />
+            <abp-validation-summary [control]="titleModel" [controlEl]="titleEl"></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="brand">
+            {{ "Brand" | localize }}
+          </label>
+          <div class="col-md-9">
+            <select class="form-control" type="number" [(ngModel)]="selectedBrand" (ngModelChange)="onItemSelect($event)" name="brand">
+              <option *ngFor="let brand of brandList" [ngValue]="brand">{{brand.title}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="productGroup">
+            {{ "ProductGroup" | localize }}
+          </label>
+          <div class="col-md-9">
+            <select class="form-control" type="number" [(ngModel)]="selectedProductGroup" name="productGroup">
+              <option *ngFor="let productGroup of productGroupList" [ngValue]="productGroup">{{productGroup.title}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="status">
+            {{ "ModelStatus" | localize }}
+          </label>
+          <div class="col-md-9">
+            <select class="form-control" type="number" [(ngModel)]="selectedStatus" name="status">
+              <option selected hidden [value]="selectedStatus">{{selectedStatus | json}} </option>
+              <option *ngFor="let status of statusList" [ngValue]="status">{{l(status.name)}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+  <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="!editModelForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>
