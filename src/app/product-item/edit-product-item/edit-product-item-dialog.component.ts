@@ -74,26 +74,30 @@ export class EditProductItemDialogComponent extends AppComponentBase
     ];
     this._productItemService.get(this.id).subscribe(element => {
       this.productItem = element;
-      this.selectedStatus = this.statusList[this.productItem.status - 1];
+      this.fillFormValues(this.productItem);
     })
+    
+  }
+  private fillFormValues(productItem :ProductItemDto){
+    this.selectedStatus = this.statusList[this.productItem.status - 1];
     this._userService.getAll("", true, 0, 99999999).subscribe(users => {
       this.users = users.items;
-      this.selectedUser = this.users.find(x=> x.id == this.productItem.userId);
+      this.selectedUser = this.users.find(x=> x.id == productItem.userId);
     });
     this.productGroupReq.status = ProductGroupStatus.Accepted
     this._productGroupService.filter(this.productGroupReq).subscribe(element => {
       this.productGroups = element.items;
-      this.selectedProductGroup = this.productGroups.find(x=> x.id == this.productItem.productGroupId);
+      this.selectedProductGroup = this.productGroups.find(x=> x.id == productItem.productGroupId);
     })
     this.brandFilterReq.status = BrandStatus.Accepted;
-    this.brandFilterReq.productGroupId = this.productItem.productGroupId;
+    this.brandFilterReq.productGroupId = productItem.productGroupId;
     this._brandService.filter(this.brandFilterReq).subscribe(element => {
       this.brands = element.items;
-      this.selectedBrand = this.brands.find(x=> x.id == this.productItem.brandId);
+      this.selectedBrand = this.brands.find(x=> x.id == productItem.brandId);
     })
     this._modelService.filter(this.modelFilterReq).subscribe(element => {
       this.models = element.items;
-      this.selectedModel = this.models.find(x=> x.id == this.productItem.modelId);
+      this.selectedModel = this.models.find(x=> x.id == productItem.modelId);
     })
   }
   onPgSelect(productGroup: ProductGroupDto) {

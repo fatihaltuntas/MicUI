@@ -68,24 +68,28 @@ export class EditModelDialogComponent extends AppComponentBase
         value: ModelStatus.Rejected, name: this.l("Rejected"),
       }
     ];
+    
+    this._modelService.get(this.id).subscribe(element => {
+      this.model = element;
+      this.fillFormValues(this.model);
+    })
+  }
+
+  private fillFormValues(model:ModelDto){
     this.productGroupFilterReq.status = ProductGroupStatus.Accepted;
     this.brandFilterReq.status = BrandStatus.Accepted;
     this._productGroupService.filter(this.productGroupFilterReq).subscribe(element => {
       this.productGroupList = element.items;
+      this.selectedProductGroup = this.productGroupList.find(el=> el.id == model.productGroupId);
     });
     this._brandService.filter(this.brandFilterReq).subscribe(element => {
       this.brandList = element.items;
+      this.selectedBrand = this.brandList.find(x=> x.id == model.brandId);
     });
-    this._modelService.get(this.id).subscribe(element => {
-      this.model = element;
-      this._productGroupService.getProductGroupsByBrandId(this.model.brandId).subscribe(element => {
-        this.productGroupList = element;
-      });
-      this.selectedProductGroup = this.productGroupList.find(el=> el.id == this.model.productGroupId);
-      this.selectedBrand = this.brandList.find(x=> x.id == this.model.brandId);
-      
-      this.selectedStatus = this.statusList[this.model.status - 1];
-    })
+    this._productGroupService.getProductGroupsByBrandId(model.brandId).subscribe(element => {
+      this.productGroupList = element;
+      this.selectedStatus = this.statusList[model.status - 1];
+    });    
   }
 
   save(): void {
