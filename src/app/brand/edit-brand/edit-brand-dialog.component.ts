@@ -13,6 +13,8 @@ import { BrandStatus } from '../shared/model/brand-status.enum'
 import { BrandServiceProxy } from '../shared/services/brand.service';
 import { ProductGroupServiceProxy } from '@app/product-group/shared/services/product-group.service';
 import { ProductGroupDto } from '@app/product-group/shared/model/product-group.dto';
+import { ProductGroupFilterRequestDto } from '@app/product-group/shared/model/product-group-filter-request.dto';
+import { ProductGroupStatus } from '@app/product-group/shared/model/product-group.enum';
 
 @Component({
   templateUrl: 'edit-brand-dialog.component.html'
@@ -26,6 +28,7 @@ export class EditBrandDialogComponent extends AppComponentBase
   selectedStatus: any = { name: "SelectStatus" };
   productGroupList: Array<ProductGroupDto>;
   selectedProductGroups: Array<ProductGroupDto>;
+  productGroupRequest : ProductGroupFilterRequestDto;
   dropdownSettings = {
     singleSelection: false,
     idField: 'id',
@@ -57,8 +60,9 @@ export class EditBrandDialogComponent extends AppComponentBase
         value: BrandStatus.Rejected, name: this.l("Rejected"),
       }
     ];
-    this._productGroupService.getAllByAccepted().subscribe(element => {
-      this.productGroupList = element;
+    this.productGroupRequest.status = ProductGroupStatus.Accepted;
+    this._productGroupService.filter(this.productGroupRequest).subscribe(element => {
+      this.productGroupList = element.items;
     });
     this._brandService.get(this.id).subscribe(element => {
       this.brand = element;

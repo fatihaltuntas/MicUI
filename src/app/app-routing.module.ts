@@ -11,6 +11,7 @@ import { ChangePasswordComponent } from './users/change-password/change-password
 import { ProductGroupComponent } from './product-group/product-group.component';
 import { BrandComponent } from './brand/brand.component';
 import { ModelComponent } from './model/model.component';
+import { ProductItemComponent } from './product-item/product-item.component';
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import { ModelComponent } from './model/model.component';
                     { path: 'update-password', component: ChangePasswordComponent, canActivate: [AppRouteGuard] },
                     { path: 'product-group', component: ProductGroupComponent, canActivate: [AppRouteGuard] },
                     { path: 'brand', component: BrandComponent, canActivate: [AppRouteGuard] },
-                    { path: 'model', component: ModelComponent, canActivate: [AppRouteGuard] }
+                    { path: 'model', component: ModelComponent, canActivate: [AppRouteGuard] },
+                    { path: 'product-item', component: ProductItemComponent, canActivate: [AppRouteGuard] }
                 ]
             }
         ])

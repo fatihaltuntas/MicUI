@@ -45,21 +45,27 @@ import { DataService } from '@shared/services/data.service';
 //product groups
 import { ProductGroupComponent } from './product-group/product-group.component';
 import { ProductGroupServiceProxy } from './product-group/shared/services/product-group.service';
-import { CreateProductGroupDialogComponent} from './product-group/create-product-group/create-product-group-dialog.component';
+import { CreateProductGroupDialogComponent } from './product-group/create-product-group/create-product-group-dialog.component';
 import { EditProductGroupDialogComponent } from './product-group/edit-product-group/edit-product-group-dialog.component';
 
 //brands
 import { BrandComponent } from './brand/brand.component';
 import { BrandServiceProxy } from './brand/shared/services/brand.service';
-import { CreateBrandDialogComponent} from './brand/create-brand/create-brand-dialog.component';
+import { CreateBrandDialogComponent } from './brand/create-brand/create-brand-dialog.component';
 import { EditBrandDialogComponent } from './brand/edit-brand/edit-brand-dialog.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 //models
-import { ModelServiceProxy} from './model/shared/services/model.service'
-import { CreateModelDialogComponent} from './model/create-model/create-model-dialog.component';
-import { EditModelDialogComponent} from './model/edit-model/edit-model-dialog.component';
+import { ModelServiceProxy } from './model/shared/services/model.service'
+import { CreateModelDialogComponent } from './model/create-model/create-model-dialog.component';
+import { EditModelDialogComponent } from './model/edit-model/edit-model-dialog.component';
 import { ModelComponent } from './model/model.component';
+
+//product items
+import { ProductItemComponent } from './product-item/product-item.component';
+import { CreateProductItemDialogComponent } from './product-item/create-product-item/create-product-item-dialog.component';
+import { EditProductItemDialogComponent } from './product-item/edit-product-item/edit-product-item-dialog.component';
+import { ProductItemServiceProxy } from './product-item/shared/services/product-item.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,8 +106,12 @@ import { ModelComponent } from './model/model.component';
     //models
     ModelComponent,
     CreateModelDialogComponent,
-    EditModelDialogComponent
-    
+    EditModelDialogComponent,
+    //product items
+    ProductItemComponent,
+    CreateProductItemDialogComponent,
+    EditProductItemDialogComponent
+
   ],
   imports: [
     CommonModule,
@@ -123,7 +133,8 @@ import { ModelComponent } from './model/model.component';
     DataService,
     ProductGroupServiceProxy,
     BrandServiceProxy,
-    ModelServiceProxy
+    ModelServiceProxy,
+    ProductItemServiceProxy
   ],
   entryComponents: [
     // tenants
@@ -144,7 +155,10 @@ import { ModelComponent } from './model/model.component';
     EditBrandDialogComponent,
     //models
     CreateModelDialogComponent,
-    EditModelDialogComponent
+    EditModelDialogComponent,
+    //product items
+    CreateProductItemDialogComponent,
+    EditProductItemDialogComponent
   ],
 })
 export class AppModule { }

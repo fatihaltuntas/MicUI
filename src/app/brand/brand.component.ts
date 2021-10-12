@@ -14,6 +14,7 @@ import {
 } from '@shared/paged-listing-component-base';
 import { ProductGroupFilterRequestDto } from '@app/product-group/shared/model/product-group-filter-request.dto';
 import { BrandStatus } from './shared/model/brand-status.enum';
+import { BrandFilterRequestDto } from './shared/model/brand-filter-request.dto';
 
 @Component({
   templateUrl: './brand.component.html',
@@ -24,7 +25,7 @@ export class BrandComponent extends PagedListingComponentBase<BrandDto> {
   keyword = '';
   statusList = [];
   selectedStatus: any = { name: "SelectStatus" };
-  request: ProductGroupFilterRequestDto = new ProductGroupFilterRequestDto;
+  request: BrandFilterRequestDto = new BrandFilterRequestDto;
 
   constructor(
     injector: Injector,
@@ -35,7 +36,7 @@ export class BrandComponent extends PagedListingComponentBase<BrandDto> {
   }
 
   list(
-    request: ProductGroupFilterRequestDto,
+    request: BrandFilterRequestDto,
     pageNumber: number,
     finishedCallback: Function
   ): void {

@@ -14,6 +14,7 @@ import { ModelStatus } from './shared/model/model-status.enum';
 import { PagedResultDtoOfModelDto } from './shared/model/paged-result-dto-of-model.dto';
 import { CreateModelDialogComponent } from './create-model/create-model-dialog.component';
 import { EditModelDialogComponent } from './edit-model/edit-model-dialog.component';
+import { ModelFilterRequestDto } from './shared/model/model-filter-request.dto';
 
 @Component({
   templateUrl: './model.component.html',
@@ -24,7 +25,7 @@ export class ModelComponent extends PagedListingComponentBase<ModelDto> {
   keyword = '';
   statusList = [];
   selectedStatus: any = { name: "SelectStatus" };
-  request: ProductGroupFilterRequestDto = new ProductGroupFilterRequestDto;
+  request: ModelFilterRequestDto = new ModelFilterRequestDto;
 
   constructor(
     injector: Injector,
@@ -35,7 +36,7 @@ export class ModelComponent extends PagedListingComponentBase<ModelDto> {
   }
 
   list(
-    request: ProductGroupFilterRequestDto,
+    request: ModelFilterRequestDto,
     pageNumber: number,
     finishedCallback: Function
   ): void {

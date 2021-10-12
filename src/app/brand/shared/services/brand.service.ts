@@ -8,7 +8,7 @@ import * as moment from 'moment';
 
 import { DataService } from '@shared/services/data.service';
 import { BrandDto } from '../model/brand.dto';
-import { ProductGroupFilterRequestDto } from '@app/product-group/shared/model/product-group-filter-request.dto';
+import {BrandFilterRequestDto} from '../model/brand-filter-request.dto'
 
 
 @Injectable()
@@ -47,12 +47,7 @@ export class BrandServiceProxy {
         return this.dataService.get(url_);
     }
 
-    getAllByAccepted(): any{
-        let url_ = "api/services/app/Brand/GetActiveBrands";
-        return this.dataService.get(url_);
-    }
-
-    filter(request : ProductGroupFilterRequestDto): any{
+    filter(request : BrandFilterRequestDto): Observable<PagedResultDtoOfBrandDto>{
         let url_ = "api/services/app/Brand/Filter?";
         return this.dataService.post(url_,request);
     }

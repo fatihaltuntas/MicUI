@@ -13,6 +13,7 @@ import { forEach as _forEach, map as _map } from 'lodash-es';
 import { BrandStatus } from '../shared/model/brand-status.enum';
 import { ProductGroupServiceProxy } from '@app/product-group/shared/services/product-group.service';
 import { ProductGroupDto } from '@app/product-group/shared/model/product-group.dto';
+import { BrandFilterRequestDto } from '../shared/model/brand-filter-request.dto';
 @Component({
   templateUrl: 'create-brand-dialog.component.html'
 })
@@ -23,6 +24,7 @@ export class CreateBrandDialogComponent extends AppComponentBase
   brandStatus: BrandStatus;
   productGroupList: Array<ProductGroupDto>;
   selectedProductGroups: Array<ProductGroupDto>;
+  request: BrandFilterRequestDto;
   dropdownSettings = {
     singleSelection: false,
     idField: 'id',
@@ -45,8 +47,9 @@ export class CreateBrandDialogComponent extends AppComponentBase
   }
 
   ngOnInit(): void {
-    this._productGroupService.getAllByAccepted().subscribe(element => {
-      this.productGroupList = element;
+    this.request.status = BrandStatus.Accepted;
+    this._productGroupService.filter(this.request).subscribe(element => {
+      this.productGroupList = element.items;
     });
 
   }
@@ -55,10 +58,10 @@ export class CreateBrandDialogComponent extends AppComponentBase
 
     // const brand = new BrandDto();
     // debugger;
-    var selectedgroups = this.productGroupList.filter(item => this.selectedProductGroups.map(x=> x.id).indexOf(item.id) > -1);
+    var selectedgroups = this.productGroupList.filter(item => this.selectedProductGroups.map(x => x.id).indexOf(item.id) > -1);
     this.brand.selectedProductGroups = selectedgroups;
     this.brand.status = BrandStatus.Waiting;
-    
+
     // brand.init(this.brand);
 
     this._brandService

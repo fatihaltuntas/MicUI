@@ -1,0 +1,107 @@
+<form class="form-horizontal" autocomplete="off" #createProductItemForm="ngForm" (ngSubmit)="save()">
+  <abp-modal-header [title]="'CreateNewProductItem' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+  <div class="modal-body">
+    <tabset>
+      <tab [heading]="'Details' | localize" class="pt-3 px-2">
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="productGroup">
+            {{ "ProductGroup" | localize }}
+          </label>
+          <div class="col-md-9">
+            <select class="form-control" type="number" (ngModelChange)="onPgSelect($event)" [(ngModel)]="selectedProductGroup" name="productGroup" required>
+              <option *ngFor="let productGroup of productGroups" [ngValue]="productGroup">{{productGroup.title}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="brand">
+            {{ "Brand" | localize }}
+          </label>
+          <div class="col-md-9">
+            <select class="form-control" type="number" (ngModelChange)="onBrandSelect($event)" [(ngModel)]="selectedBrand" name="brand" required>
+              <option *ngFor="let brand of brands" [ngValue]="brand">{{brand.title}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="model">
+            {{ "Model" | localize }}
+          </label>
+          <div class="col-md-9">
+            <select class="form-control" type="number" [(ngModel)]="selectedModel" name="model" required>
+              <option *ngFor="let model of models" [ngValue]="model">{{model.title}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="user">
+            {{ "User" | localize }}
+          </label>
+          <div class="col-md-9">
+            <select class="form-control" type="number" [(ngModel)]="selectedUser" name="user" required>
+              <option *ngFor="let user of users" [ngValue]="user">{{user.name}} {{user.surName}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="serialNumber">
+            {{ "SerialNumber" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="serialNumber" id="serialNumber" required minlength="2"
+              maxlength="32" [(ngModel)]="productItem.serialNumber" #serialNumberModel="ngModel" #serialNumberEl />
+            <abp-validation-summary [control]="serialNumberModel" [controlEl]="serialNumberEl"></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="status">
+            {{ "ProductItemStatus" | localize }}
+          </label>
+          <div class="col-md-9">
+            <select class="form-control" type="number" [(ngModel)]="selectedStatus" name="status" required>
+              <option selected hidden [value]="selectedStatus">{{l(selectedStatus.name)}} </option>
+              <option *ngFor="let status of statusList" [ngValue]="status">{{l(status.name)}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="title">
+            {{ "Title" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="title" id="title" minlength="2" maxlength="32"
+              [(ngModel)]="productItem.title" #titleModel="ngModel" #titleEl />
+            <abp-validation-summary [control]="titleModel" [controlEl]="titleEl"></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="barcode">
+            {{ "Barcode" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="barcode" id="barcode" minlength="2" maxlength="32"
+              [(ngModel)]="productItem.barcode" #barcodeModel="ngModel" #barcodeEl />
+            <abp-validation-summary [control]="barcodeModel" [controlEl]="barcodeEl"></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="note">
+            {{ "Note" | localize }}
+          </label>
+          <div class="col-md-9">
+            <textarea class="form-control"  name="note" id="note" minlength="2"
+              [(ngModel)]="productItem.note" #noteModel="ngModel" rows="3" #noteEl></textarea>
+            <abp-validation-summary [control]="noteModel" [controlEl]="noteEl"></abp-validation-summary>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+  <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="!createProductItemForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>

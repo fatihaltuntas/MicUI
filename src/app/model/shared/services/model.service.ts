@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 import * as moment from 'moment';
 
 import { DataService } from '@shared/services/data.service';
-import { ProductGroupFilterRequestDto } from '@app/product-group/shared/model/product-group-filter-request.dto';
+import { ModelFilterRequestDto } from '@app/model/shared/model/model-filter-request.dto';
 import { ModelDto } from '../model/model.dto';
 import { PagedResultDtoOfModelDto } from '../model/paged-result-dto-of-model.dto';
 
@@ -48,7 +48,7 @@ export class ModelServiceProxy {
         return this.dataService.get(url_);
     }
 
-    filter(request : ProductGroupFilterRequestDto): any{
+    filter(request : ModelFilterRequestDto): Observable<PagedResultDtoOfModelDto>{
         let url_ = "api/services/app/Model/Filter?";
         return this.dataService.post(url_,request);
     }

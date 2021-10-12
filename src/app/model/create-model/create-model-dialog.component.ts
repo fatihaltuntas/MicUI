@@ -15,6 +15,8 @@ import { ModelStatus } from '../shared/model/model-status.enum';
 import { ModelServiceProxy } from '../shared/services/model.service';
 import { BrandDto } from '@app/brand/shared/model/brand.dto';
 import { BrandServiceProxy } from '@app/brand/shared/services/brand.service';
+import { BrandFilterRequestDto } from '@app/brand/shared/model/brand-filter-request.dto';
+import { BrandStatus } from '@app/brand/shared/model/brand-status.enum';
 @Component({
   templateUrl: 'create-model-dialog.component.html'
 })
@@ -27,6 +29,7 @@ export class CreateModelDialogComponent extends AppComponentBase
   selectedProductGroup: ProductGroupDto;
   brandList: Array<BrandDto>;
   selectedBrand: BrandDto;
+  brandFilterReq:BrandFilterRequestDto;
   dropdownSettings = {
     singleSelection: false,
     idField: 'id',
@@ -51,17 +54,13 @@ export class CreateModelDialogComponent extends AppComponentBase
   }
 
   ngOnInit(): void {
-    this._brandService.getAllByAccepted().subscribe(element => {
-      this.brandList = element;
+    this.brandFilterReq.status = BrandStatus.Accepted;
+    this._brandService.filter(this.brandFilterReq).subscribe(element => {
+      this.brandList = element.items;
     });
   }
   save(): void {
     this.saving = true;
-
-    // const brand = new BrandDto();
-    // debugger;
-    // var selectedgroups = this.productGroupList.filter(item => this.selectedProductGroups.map(x=> x.id).indexOf(item.id) > -1);
-    // this.model.selectedProductGroups = selectedgroups;
     this.model.status = ModelStatus.Waiting;
     this.model.productGroupId = this.selectedProductGroup.id;
     this.model.brandId = this.selectedBrand.id;

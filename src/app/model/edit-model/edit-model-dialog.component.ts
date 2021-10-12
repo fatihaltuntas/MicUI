@@ -15,6 +15,10 @@ import { ModelServiceProxy } from '../shared/services/model.service';
 import { ModelStatus } from '../shared/model/model-status.enum';
 import { BrandDto } from '@app/brand/shared/model/brand.dto';
 import { BrandServiceProxy } from '@app/brand/shared/services/brand.service';
+import { BrandFilterRequestDto } from '@app/brand/shared/model/brand-filter-request.dto';
+import { ProductItemFilterRequestDto } from '@app/product-item/shared/model/product-item-filter-request.dto';
+import { ProductGroupStatus } from '@app/product-group/shared/model/product-group.enum';
+import { BrandStatus } from '@app/brand/shared/model/brand-status.enum';
 
 @Component({
   templateUrl: 'edit-model-dialog.component.html'
@@ -30,6 +34,8 @@ export class EditModelDialogComponent extends AppComponentBase
   selectedProductGroup: ProductGroupDto;
   brandList: Array<BrandDto>;
   selectedBrand: BrandDto;
+  brandFilterReq: BrandFilterRequestDto;
+  productGroupFilterReq:ProductItemFilterRequestDto;
   dropdownSettings = {
     singleSelection: false,
     idField: 'id',
@@ -62,11 +68,13 @@ export class EditModelDialogComponent extends AppComponentBase
         value: ModelStatus.Rejected, name: this.l("Rejected"),
       }
     ];
-    this._productGroupService.getAllByAccepted().subscribe(element => {
-      this.productGroupList = element;
+    this.productGroupFilterReq.status = ProductGroupStatus.Accepted;
+    this.brandFilterReq.status = BrandStatus.Accepted;
+    this._productGroupService.filter(this.productGroupFilterReq).subscribe(element => {
+      this.productGroupList = element.items;
     });
-    this._brandService.getAllByAccepted().subscribe(element => {
-      this.brandList = element;
+    this._brandService.filter(this.brandFilterReq).subscribe(element => {
+      this.brandList = element.items;
     });
     this._modelService.get(this.id).subscribe(element => {
       this.model = element;
