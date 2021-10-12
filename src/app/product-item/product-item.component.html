@@ -89,6 +89,9 @@
                 <thead class="bg-light">
                   <tr>
                     <th>{{ "Id" | localize }}</th>
+                    <th>{{ "ProductGroupName" | localize }}</th>
+                    <th>{{ "BrandName" | localize }}</th>
+                    <th>{{ "ModelName" | localize }}</th>
                     <th>{{ "Name" | localize }}</th>
                     <th>{{ "Status" | localize }}</th>
                     <th>{{ "CreatedDate" | localize }}</th>
@@ -107,13 +110,12 @@
                           }
                   ">
                     <td>{{ productItem.id }}</td>
+                    <td>{{ productItem.productGroupName }}</td>
+                    <td>{{ productItem.brandName }}</td>
+                    <td>{{ productItem.modelName }}</td>
                     <td>{{ productItem.title }}</td>
-                    <th>
-                      <i *ngIf="productItem.status == 1" class="fas fa-clock" style="color: darkorange;"></i>
-                      <i *ngIf="productItem.status == 2" class="fas fa-check" style="color: green;"></i>
-                      <i *ngIf="productItem.status == 3" class="fas fa-times" style="color: red;"></i>
-                    </th>
-                    <th>{{productItem.creationTime|date:'short'}}</th>
+                    <td>{{productItem.status | localize}}</td>
+                    <th>{{productItem.creationTime | date:'short'}}</th>
                     <td>
                       <button type="button" class="btn btn-sm bg-secondary" (click)="editProductItem(productItem)">
                         <i class="fas fa-pencil-alt"></i>

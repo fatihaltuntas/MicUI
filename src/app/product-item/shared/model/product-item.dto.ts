@@ -6,8 +6,11 @@ export interface IProductItemDto {
     barcode:string;
     serialNumber:string;
     brandId:number;
+    brandName:string;
     modelId:number;
+    modelName:string;
     productGroupId:number;
+    productGroupName:string;
     userId:number;
     note:string;
     status:ProductItemStatus;
@@ -21,8 +24,11 @@ export class ProductItemDto implements IProductItemDto {
     barcode:string;
     serialNumber:string;
     brandId:number;
+    brandName:string;
     modelId:number;
+    modelName:string;
     productGroupId:number;
+    productGroupName:string;
     userId:number;
     note:string;
     title: string;
@@ -54,6 +60,9 @@ export class ProductItemDto implements IProductItemDto {
             this.createdUserId = _data["createdUserId"];
             this.editedUserId = _data["editedUserId"];
             this.barcode = _data["barcode"];
+            this.brandName = _data["brandName"];
+            this.modelName = _data["modelName"];
+            this.productGroupName = _data["productGroupName"];
             this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
         }
     }
@@ -79,6 +88,9 @@ export class ProductItemDto implements IProductItemDto {
         data["createdUserId"] = this.createdUserId;
         data["editedUserId"] = this.editedUserId;
         data["barcode"] = this.barcode;
+        data["brandName"] = this.brandName;
+        data["productGroupName"] = this.productGroupName;
+        data["productGroupName"] = this.modelName;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         return data; 
     }
