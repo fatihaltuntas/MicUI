@@ -24,7 +24,7 @@ export class CreateBrandDialogComponent extends AppComponentBase
   brandStatus: BrandStatus;
   productGroupList: Array<ProductGroupDto>;
   selectedProductGroups: Array<ProductGroupDto>;
-  request: BrandFilterRequestDto;
+  request: BrandFilterRequestDto = new BrandFilterRequestDto;
   dropdownSettings = {
     singleSelection: false,
     idField: 'id',

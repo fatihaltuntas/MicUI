@@ -34,8 +34,8 @@ export class EditModelDialogComponent extends AppComponentBase
   selectedProductGroup: ProductGroupDto;
   brandList: Array<BrandDto>;
   selectedBrand: BrandDto;
-  brandFilterReq: BrandFilterRequestDto;
-  productGroupFilterReq:ProductItemFilterRequestDto;
+  brandFilterReq: BrandFilterRequestDto = new BrandFilterRequestDto;
+  productGroupFilterReq:ProductItemFilterRequestDto = new ProductItemFilterRequestDto;
   dropdownSettings = {
     singleSelection: false,
     idField: 'id',

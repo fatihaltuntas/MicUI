@@ -13,6 +13,9 @@ import { CreateProductItemDialogComponent } from './create-product-item/create-p
 import { EditProductItemDialogComponent } from './edit-product-item/edit-product-item-dialog.component';
 import { ProductItemStatus } from './shared/model/product-item-status.enum';
 import { ProductGroupFilterRequestDto } from '@app/product-group/shared/model/product-group-filter-request.dto';
+import { CreateProductGroupDialogComponent } from '@app/product-group/create-product-group/create-product-group-dialog.component';
+import { CreateBrandDialogComponent } from '@app/brand/create-brand/create-brand-dialog.component';
+import { CreateModelDialogComponent } from '@app/model/create-model/create-model-dialog.component';
 
 @Component({
   templateUrl: './product-item.component.html',
@@ -97,6 +100,33 @@ export class ProductItemComponent extends PagedListingComponentBase<ProductItemD
 
   createProductItem(): void {
     this.showCreateOrEditProductItemDialog();
+  }
+  createProductGroup(): void {
+    let createProductGroupDialog: BsModalRef;
+    createProductGroupDialog = this._modalService.show(
+      CreateProductGroupDialogComponent,
+      {
+        class: 'modal-lg',
+      }
+    );
+  }
+  createBrand(): void {
+    let createBrandDialog: BsModalRef;
+    createBrandDialog = this._modalService.show(
+      CreateBrandDialogComponent,
+      {
+        class: 'modal-lg',
+      }
+    );
+  }
+  createModel(): void {
+    let createModelDialog: BsModalRef;
+    createModelDialog = this._modalService.show(
+      CreateModelDialogComponent,
+      {
+        class: 'modal-lg',
+      }
+    );
   }
 
   editProductItem(productItem: ProductItemDto): void {

@@ -29,7 +29,7 @@ export class CreateModelDialogComponent extends AppComponentBase
   selectedProductGroup: ProductGroupDto;
   brandList: Array<BrandDto>;
   selectedBrand: BrandDto;
-  brandFilterReq:BrandFilterRequestDto;
+  brandFilterReq:BrandFilterRequestDto = new BrandFilterRequestDto;
   dropdownSettings = {
     singleSelection: false,
     idField: 'id',

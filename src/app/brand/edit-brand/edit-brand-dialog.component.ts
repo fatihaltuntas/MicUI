@@ -28,7 +28,7 @@ export class EditBrandDialogComponent extends AppComponentBase
   selectedStatus: any = { name: "SelectStatus" };
   productGroupList: Array<ProductGroupDto>;
   selectedProductGroups: Array<ProductGroupDto>;
-  productGroupRequest : ProductGroupFilterRequestDto;
+  productGroupRequest : ProductGroupFilterRequestDto = new ProductGroupFilterRequestDto;
   dropdownSettings = {
     singleSelection: false,
     idField: 'id',

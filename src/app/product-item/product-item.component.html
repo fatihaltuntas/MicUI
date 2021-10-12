@@ -2,10 +2,22 @@
   <section class="content-header">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-6">
+        <div class="col-3">
           <h1>{{ "ProductItems" | localize }}</h1>
         </div>
-        <div class="col-6 text-right">
+        <div class="col-9 text-right">
+          <a href="javascript:;" class="btn bg-blue mg-r-10" (click)="createProductGroup()">
+            <i class="fa fa-plus-square"></i>
+            {{ "CreateProductGroup" | localize }}
+          </a>
+          <a href="javascript:;" class="btn bg-blue mg-r-10" (click)="createBrand()">
+            <i class="fa fa-plus-square"></i>
+            {{ "CreateBrand" | localize }}
+          </a>
+          <a href="javascript:;" class="btn bg-blue mg-r-10" (click)="createModel()">
+            <i class="fa fa-plus-square"></i>
+            {{ "CreateModel" | localize }}
+          </a>
           <a href="javascript:;" class="btn bg-blue" (click)="createProductItem()">
             <i class="fa fa-plus-square"></i>
             {{ "Create" | localize }}
