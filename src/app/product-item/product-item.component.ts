@@ -16,6 +16,19 @@ import { ProductGroupFilterRequestDto } from '@app/product-group/shared/model/pr
 import { CreateProductGroupDialogComponent } from '@app/product-group/create-product-group/create-product-group-dialog.component';
 import { CreateBrandDialogComponent } from '@app/brand/create-brand/create-brand-dialog.component';
 import { CreateModelDialogComponent } from '@app/model/create-model/create-model-dialog.component';
+import { UserDto, UserServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ProductGroupDto } from '@app/product-group/shared/model/product-group.dto';
+import { BrandDto } from '@app/brand/shared/model/brand.dto';
+import { ModelDto } from '@app/model/shared/model/model.dto';
+import { BrandFilterRequestDto } from '@app/brand/shared/model/brand-filter-request.dto';
+import { ModelFilterRequestDto } from '@app/model/shared/model/model-filter-request.dto';
+import { ProductGroupServiceProxy } from '@app/product-group/shared/services/product-group.service';
+import { BrandServiceProxy } from '@app/brand/shared/services/brand.service';
+import { ModelServiceProxy } from '@app/model/shared/services/model.service';
+import { ProductGroupStatus } from '@app/product-group/shared/model/product-group.enum';
+import { BrandStatus } from '@app/brand/shared/model/brand-status.enum';
+import { ModelStatus } from '@app/model/shared/model/model-status.enum';
+import { ProductItemFilterRequestDto } from './shared/model/product-item-filter-request.dto';
 
 @Component({
   templateUrl: './product-item.component.html',
@@ -26,18 +39,33 @@ export class ProductItemComponent extends PagedListingComponentBase<ProductItemD
   keyword = '';
   statusList = [];
   selectedStatus: any = { name: "SelectStatus" };
-  request: ProductGroupFilterRequestDto = new ProductGroupFilterRequestDto;
+  request: ProductItemFilterRequestDto = new ProductItemFilterRequestDto;
+  users: Array<UserDto> = new Array<UserDto>();
+  selectedUser: UserDto;
+  productGroups: ProductGroupDto[] = [];
+  selectedProductGroup: ProductGroupDto;
+  brands: BrandDto[] = [];
+  selectedBrand: BrandDto;
+  models: ModelDto[] = [];
+  selectedModel: ModelDto;
+  brandFilterReq: BrandFilterRequestDto = new BrandFilterRequestDto;
+  modelFilterReq: ModelFilterRequestDto = new ModelFilterRequestDto;
+  productGroupReq: ProductGroupFilterRequestDto = new ProductGroupFilterRequestDto;
 
   constructor(
     injector: Injector,
     private _productItemService: ProductItemServiceProxy,
-    private _modalService: BsModalService
+    private _productGroupService: ProductGroupServiceProxy,
+    private _brandService: BrandServiceProxy,
+    private _modelService: ModelServiceProxy,
+    private _modalService: BsModalService,
+    private _userService:UserServiceProxy
   ) {
     super(injector);
   }
 
   list(
-    request: ProductGroupFilterRequestDto,
+    request: ProductItemFilterRequestDto,
     pageNumber: number,
     finishedCallback: Function
   ): void {
@@ -53,7 +81,15 @@ export class ProductItemComponent extends PagedListingComponentBase<ProductItemD
         value: ProductItemStatus.Repository, name: this.l("Repository"),
       }
     ];
-
+    
+    this.productGroupReq.status = ProductGroupStatus.Accepted
+    this._productGroupService.filter(this.productGroupReq).subscribe(element => {
+      this.productGroups = element.items;
+    })
+    this._userService.getAll("", true, 0, 999999).subscribe(element => {
+      this.users = element.items;
+    })
+    
     this._productItemService
       .filter(request)
       .pipe(
@@ -76,6 +112,28 @@ export class ProductItemComponent extends PagedListingComponentBase<ProductItemD
 
   onStatusSelected(status) {
     this.request.status = status.value;
+  }
+  onUserSelected(user:UserDto){
+    this.request.userId = user.id;
+  }
+  onPgSelect(productGroup: ProductGroupDto) {
+    this.brandFilterReq.status = BrandStatus.Accepted;
+    this.brandFilterReq.productGroupId = productGroup.id;
+    this._brandService.filter(this.brandFilterReq).subscribe(element => {
+      this.brands = element.items;
+    })
+    this.request.productGroupId = productGroup.id;
+  }
+  onBrandSelect(brand: BrandDto) {
+    this.modelFilterReq.status = ModelStatus.Accepted;
+    this.modelFilterReq.brandId = brand.id;
+    this._modelService.filter(this.modelFilterReq).subscribe(element => {
+      this.models = element.items;
+    })
+    this.request.brandId = brand.id;
+  }
+  onModelSelected(model:ModelDto){
+    this.request.modelId = model.id;
   }
 
   delete(): void {

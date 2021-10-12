@@ -31,7 +31,31 @@
       <div class="card">
         <div class="card-header">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-2">
+              <select class="form-control" type="number" (ngModelChange)="onPgSelect($event)"
+                [(ngModel)]="selectedProductGroup" name="productGroup" required>
+                <option selected [value]="selectedProductGroup" [hidden]="true">{{"ProductGroup" | localize}} </option>
+                <option *ngFor="let productGroup of productGroups" [ngValue]="productGroup">{{productGroup.title}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control" type="number" (ngModelChange)="onBrandSelect($event)"
+                [(ngModel)]="selectedBrand" name="brand" required>
+                <option selected [value]="selectedBrand" [hidden]="true">{{"Brand" | localize}} </option>
+                <option *ngFor="let brand of brands" [ngValue]="brand">{{brand.title}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control" type="number" [(ngModel)]="selectedModel"
+                (ngModelChange)="onModelSelected(selectedModel)" name="model" required>
+                <option selected [value]="selectedModel" [hidden]="true">{{"Model" | localize}} </option>
+                <option *ngFor="let model of models" [ngValue]="model">{{model.title}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-2">
               <select class="form-control" type="number" [(ngModel)]="selectedStatus" name="status"
                 (ngModelChange)="onStatusSelected(selectedStatus)">
                 <option selected hidden [value]="selectedStatus">{{"Status" | localize}}</option>
@@ -39,7 +63,15 @@
                 </option>
               </select>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-2">
+              <select class="form-control" type="number" [(ngModel)]="selectedUser"
+                (ngModelChange)="onUserSelected(selectedUser)" name="user" required>
+                <option selected [value]="selectedUser" [hidden]="true">{{"User" | localize}} </option>
+                <option *ngFor="let user of users" [ngValue]="user">{{user.name}} {{user.surName}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-2">
               <div class="input-group">
                 <input type="text" class="form-control" name="keyword" [placeholder]="'SearchWithThreeDot' | localize"
                   [(ngModel)]="request.searchWord" (keyup.enter)="search()" />
